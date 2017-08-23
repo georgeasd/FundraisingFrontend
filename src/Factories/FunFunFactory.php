@@ -699,7 +699,7 @@ class FunFunFactory {
 	}
 
 	public function newBankDataConverter(): BankDataConverter {
-		return new BankDataConverter( $this->config['bank-data-file'] );
+		return new BankDataConverter();
 	}
 
 	public function setSubscriptionValidator( SubscriptionValidator $subscriptionValidator ): void {

@@ -26,11 +26,6 @@ class BankDataConverterTest extends TestCase {
 		$this->assertInstanceOf( BankDataConverter::class, $this->newBankDataConverter() );
 	}
 
-	public function testGivenNotExistingBankDataFile_constructorThrowsException(): void {
-		$this->expectException( BankDataLibraryInitializationException::class );
-		$this->newBankDataConverter( '/foo/bar/awesome.data' );
-	}
-
 	/**
 	 * @dataProvider ibanTestProvider
 	 */
@@ -139,8 +134,8 @@ class BankDataConverterTest extends TestCase {
 		);
 	}
 
-	private function newBankDataConverter( string $filePath = 'res/blz.lut2f' ): BankDataConverter {
-		return new BankDataConverter( $filePath );
+	private function newBankDataConverter(): BankDataConverter {
+		return new BankDataConverter();
 	}
 
 }

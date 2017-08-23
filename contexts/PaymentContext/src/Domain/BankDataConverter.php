@@ -14,17 +14,8 @@ use WMDE\Fundraising\Frontend\PaymentContext\Domain\Model\Iban;
  */
 class BankDataConverter {
 
-	private $lutPath;
-
-	/**
-	 * @param string $lutPath
-	 * @throws BankDataLibraryInitializationException
-	 */
-	public function __construct( string $lutPath ) {
-		$this->lutPath = $lutPath;
-		if ( lut_init( $this->lutPath ) !== 1 ) {
-			throw new BankDataLibraryInitializationException( $this->lutPath );
-		}
+	public function __construct() {
+		lut_init();
 	}
 
 	/**

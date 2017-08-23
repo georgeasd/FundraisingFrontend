@@ -63,7 +63,6 @@ connection data. If you're using MySQL, [it's important](http://stackoverflow.co
 For a fully working instance with all payment types and working templates you need to fill out the following
 configuration data:
 
-	 - `bank-data-file`
 	 - `operator-email`
 	 - `operator-displayname-organization`
 	 - `operator-displayname-suborganization`
