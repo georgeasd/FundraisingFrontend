@@ -5,18 +5,8 @@ services:
 
 language: php
 
-matrix:
-  fast_finish: true
-  include:
-  - php: 7.1
-    env: DB=sqlite
-  - php: 7.1
-    env: DB=mysql
-    # Disabled since we hit the 50 minute timeout
-#  - php: 7.1
-#    env: DB=sqlite; TYPE=coverage
-#  allow_failures: # We allow this one to fail so fast_finish causes the build to not wait for it
-#  - env: DB=sqlite; TYPE=coverage
+php:
+  - 7.1
 
 before_install:
   - docker build -t wmde/fundraising-frontend-phpstan build/phpstan
@@ -27,13 +17,12 @@ install:
   - npm install
 
 before_script:
-  - bash build/installKontoCheck.sh
-  - if [ "$DB" == "mysql" ]; then bash build/travis/configureForMysql.sh; fi
   - if [ "$MCP_ACCESS_KEY" != "" ] && [ "$MCP_PROJECT_ID" != "" ]; then bash build/travis/createLocalTestConfig.sh > app/config/config.test.local.json; fi
 
 script:
-  - composer ci
-  - travis_retry vendor/bin/phpunit tests/System/
+  - composer validate --no-interaction
+  - make setup
+  - make ci
   - composer install --no-dev -q
   - docker run -v $PWD:/app --rm wmde/fundraising-frontend-phpstan analyse -c phpstan.neon --level 1 --no-progress cli/ contexts/ src/
 
